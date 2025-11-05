@@ -10,19 +10,22 @@ function setup() {
     let parentNode = document.getElementById("madlib-questions");
 
     // TODO For each of MAD_LIB's `fillers`, generate an appropriate label and input.
-    for (let i = 0; i < MAD_LIB.fillers.length; i++) {
-        let filler = MAD_LIB.fillers[i];
+    for (const [index, filler] of MAD_LIB.fillers.entries()) {
+        // Create label
         let label = document.createElement("label");
-        label.htmlFor = `input-${i}`;
-        label.innerText = `Please enter a ${filler.type}:`;
+        label.setAttribute("for", `input-${index}`);
+        label.innerText = `Please enter a ${filler.type}: `;
         parentNode.appendChild(label);
+
+        // Create input
         let input = document.createElement("input");
-        input.type = "text";
-        input.id = `input-${i}`;
-        parentNode.appendChild(input);
+        input.setAttribute("type", "text");
+        input.setAttribute("id", `input-${index}`);
+        parentNode.appendChild(input);  
+        // Create error text
         let errorText = document.createElement("div");
-        errorText.id = `error-${i}`;
-        errorText.className = "error-text";
+        errorText.setAttribute("id", `error-${index}`);
+        errorText.setAttribute("class", "error-text");
         errorText.innerText = "";
         parentNode.appendChild(errorText);
     }
