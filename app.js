@@ -1,5 +1,5 @@
 
-const MAD_LIB = getShortMadLib(); // When testing, try replacing with getLongMadLib()
+const MAD_LIB = getLongMadLib(); // When testing, try replacing with getLongMadLib()
 
 /**
  * This function is called when the page is initially loaded.
