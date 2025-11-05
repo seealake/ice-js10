@@ -11,18 +11,14 @@ function setup() {
 
     // TODO For each of MAD_LIB's `fillers`, generate an appropriate label and input.
     for (const [index, filler] of MAD_LIB.fillers.entries()) {
-        // Create label
         let label = document.createElement("label");
         label.setAttribute("for", `input-${index}`);
         label.innerText = `Please enter a ${filler.type}: `;
         parentNode.appendChild(label);
-
-        // Create input
         let input = document.createElement("input");
         input.setAttribute("type", "text");
         input.setAttribute("id", `input-${index}`);
         parentNode.appendChild(input);  
-        // Create error text
         let errorText = document.createElement("div");
         errorText.setAttribute("id", `error-${index}`);
         errorText.setAttribute("class", "error-text");
