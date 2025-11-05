@@ -10,6 +10,25 @@ function setup() {
     let parentNode = document.getElementById("madlib-questions");
 
     // TODO For each of MAD_LIB's `fillers`, generate an appropriate label and input.
+    for (let i = 0; i < MAD_LIB.fillers.length; i++) {
+        let filler = MAD_LIB.fillers[i];
+        // Create label
+        let label = document.createElement("label");
+        label.htmlFor = `input-${i}`;
+        label.innerText = `Please enter a ${filler.type}:`;
+        parentNode.appendChild(label);
+        // Create input
+        let input = document.createElement("input");
+        input.type = "text";
+        input.id = `input-${i}`;
+        parentNode.appendChild(input);
+        // Create error text
+        let errorText = document.createElement("div");
+        errorText.id = `error-${i}`;
+        errorText.className = "error-text";
+        errorText.innerText = "";
+        parentNode.appendChild(errorText);
+    }
 }
 
 /**
@@ -34,6 +53,15 @@ function generate() {
  */
 function generateLib() {
     // TODO Generate the madlib and insert it in `madlib-result`!
+    let resultNode = document.getElementById("madlib-result");
+    let filledInText = MAD_LIB.template;
+    for (let i = 0; i < MAD_LIB.fillers.length; i++) {
+        let input = document.getElementById(`input-${i}`);
+        let userInput = input.value;
+        let placeholder = `{${MAD_LIB.fillers[i].name}}`;
+        filledInText = filledInText.replace(placeholder, userInput);
+    }
+    resultNode.innerText = filledInText;
 }
 
 /**
@@ -55,7 +83,29 @@ function validate() {
     // TODO: If any inputs are invalid, set their error text.
     //       After checking ALL inputs, return true/false if
     //       the entire form was valid or not.
-
+    for (let i = 0; i < MAD_LIB.fillers.length; i++) {
+        let filler = MAD_LIB.fillers[i];
+        let input = document.getElementById(`input-${i}`);
+        let errorText = document.getElementById(`error-${i}`);
+        let value = input.value.trim();
+        let valid = true;
+        if (filler.type === "word") {
+            valid = /^[A-Za-z]+$/.test(value);
+            if (!valid) {
+                errorText.innerText = "Please type 1 or more letters, without spaces.";
+                isValid = false;
+            }
+        } else if (filler.type === "quote") {
+            valid = /^".+"$/.test(value);
+            if (!valid) {
+                errorText.innerText = 'Please type 1 or more characters between quotes.';
+                isValid = false;
+            }
+        }
+        if (valid) {
+            errorText.innerText = "";
+        }
+    }
     return isValid;
 }
 
