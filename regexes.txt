@@ -1,0 +1,75 @@
+// A 4-digit number
+
+// positive cases (SHOULD match)
+8936
+0965
+0000
+
+// negative cases (should NOT match)
+38375
+aaaa
+89.3
+123
+
+
+// A (full) SemVer string
+
+// positive cases
+4.6.1
+24.5.101
+3.56.4
+
+// negative cases
+1.2
+1.a
+a.b.c
+..
+1a.2b.3c
+
+
+// a capitalized word
+
+// positive cases
+A
+Apple
+Zebra
+
+// negative cases
+a
+An apple
+123
+abc
+zEbra
+
+
+// a sentence (don't worry about grammar)
+// begins with a capital letter, ends with a period, as many words as you like
+//   separated by a single space
+
+// positive cases
+A man.
+Me.
+The quick brown fox jumps over the lazy dog.
+There is Bucky.
+
+// negative cases
+A  man.
+Me .
+the.
+The
+
+
+// An email
+
+// positive cases (SHOULD match)
+someone@example.com
+jeff@amazon.co.uk
+bruce.wayne@batman.com
+
+// negative cases (should NOT match)
+@example.com
+a@b
+.@example.com
+someone@.
+someone@example.
+someone@someone@example.com
