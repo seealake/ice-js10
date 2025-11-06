@@ -50,14 +50,23 @@ function generate() {
 function generateLib() {
     // TODO Generate the madlib and insert it in `madlib-result`!
     let resultNode = document.getElementById("madlib-result");
-    let filledInText = MAD_LIB.text;
+    const valuesById = {};
     for (let i = 0; i < MAD_LIB.fillers.length; i++) {
-        let input = document.getElementById(`input-${i}`);
-        let value = input.value.trim();
-        let regex = new RegExp(`\\{${i}\\}`, 'g');
-        filledInText = filledInText.replace(regex, value);
+        const filler = MAD_LIB.fillers[i];
+        const raw = document.getElementById(`input-${i}`).value.trim();
+        valuesById[filler.id] = normalizeByType(raw, filler.type);
     }
-    resultNode.innerText = filledInText;
+    let out = "";
+    for (const seg of MAD_LIB.text) {
+        if (seg.segmentType === "static") {
+        out += seg.text || "";
+        } else if (seg.segmentType === "fillable") {
+        out += valuesById[seg.id] ?? "";
+        } else if (seg.segmentType === "newline") {
+        out += "\n";
+        }
+    }
+    resultNode.textContent = out;
 }
 
 /**
