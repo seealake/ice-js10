@@ -50,12 +50,12 @@ function generate() {
 function generateLib() {
     // TODO Generate the madlib and insert it in `madlib-result`!
     let resultNode = document.getElementById("madlib-result");
-    let filledInText = MAD_LIB.template;
+    let filledInText = MAD_LIB.text;
     for (let i = 0; i < MAD_LIB.fillers.length; i++) {
         let input = document.getElementById(`input-${i}`);
-        let userInput = input.value;
-        let placeholder = `{${MAD_LIB.fillers[i].name}}`;
-        filledInText = filledInText.replace(placeholder, userInput);
+        let value = input.value.trim();
+        let regex = new RegExp(`\\{${i}\\}`, 'g');
+        filledInText = filledInText.replace(regex, value);
     }
     resultNode.innerText = filledInText;
 }
